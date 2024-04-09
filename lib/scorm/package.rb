@@ -81,7 +81,7 @@ module Scorm
       extract!
 
       # Detect and read imsmanifest.xml
-      if exists?('imsmanifest.xml')
+      if exist?('imsmanifest.xml')
         @manifest = Manifest.new(self, file('imsmanifest.xml'))
       else
         raise InvalidPackage, "#{File.basename(@package)}: no imsmanifest.xml, maybe not SCORM compatible?"
@@ -152,7 +152,7 @@ module Scorm
     # set to +true+ when opening the package the file will <em>not</em> be
     # extracted to the file system, but read directly into memory.
     def file(filename)
-      if File.exists?(@path)
+      if File.exist?(@path)
         File.read(Dir.glob(path_to(filename), File::FNM_CASEFOLD).first)
       else
         Zip::ZipFile.foreach(@package) do |entry|
@@ -162,7 +162,7 @@ module Scorm
     end
 
     # Returns +true+ if the specified file (or directory) exists in the package.
-    def exists?(filename)
+    def exist?(filename)
       if File.exist?(@path)
         File.exist?(path_to(filename))
       else
