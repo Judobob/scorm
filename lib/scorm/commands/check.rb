@@ -12,7 +12,7 @@ module Scorm::Command
         display ""
         display "== Manifest =="
         Scorm::Manifest::MANIFEST_FILES.each do |file|
-         if pkg.exists?(file)
+         if pkg.exist?(file)
            display "#{file} -> OK"
           else
             display "#{file} -> Missing"
@@ -32,7 +32,7 @@ module Scorm::Command
         pkg.manifest.resources.each do |resource|
           display "#{resource.href} (#{resource.type}, #{resource.scorm_type}):"
           resource.files.each do |file|
-            if pkg.exists?(file)
+            if pkg.exist?(file)
               display "  - #{file} -> OK"
             else
               display "  - #{file} -> Missing"

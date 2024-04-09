@@ -74,7 +74,7 @@ module Scorm
           i = (i || 0) + 1
 
         # Make sure the generated path is unique.
-        end while File.exists?(@path)
+        end while File.exist?(@path)
       end
 
       # Extract the package
@@ -112,7 +112,7 @@ module Scorm
 
     # Cleans up by deleting all extracted files. Called when an error occurs.
     def cleanup
-      FileUtils.rmtree(@path) if @options[:cleanup] && !@options[:dry_run] && @path && File.exists?(@path) && package?
+      FileUtils.rmtree(@path) if @options[:cleanup] && !@options[:dry_run] && @path && File.exist?(@path) && package?
     end
 
     # Extracts the content of the package to the course repository. This will be
@@ -134,7 +134,7 @@ module Scorm
       Zip::ZipFile::foreach(@package) do |entry|
         entry_path = File.join(@path, entry.name)
         entry_dir = File.dirname(entry_path)
-        FileUtils.mkdir_p(entry_dir) unless File.exists?(entry_dir)
+        FileUtils.mkdir_p(entry_dir) unless File.exist?(entry_dir)
         entry.extract(entry_path)
       end
     end
@@ -163,8 +163,8 @@ module Scorm
 
     # Returns +true+ if the specified file (or directory) exists in the package.
     def exists?(filename)
-      if File.exists?(@path)
-        File.exists?(path_to(filename))
+      if File.exist?(@path)
+        File.exist?(path_to(filename))
       else
         Zip::ZipFile::foreach(@package) do |entry|
           return true if entry.name == filename
